@@ -1,0 +1,12 @@
+version: '2.1'
+
+
+services:
+  osticket:
+    build: .
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+
+

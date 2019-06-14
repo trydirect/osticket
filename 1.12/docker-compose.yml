@@ -13,9 +13,17 @@ services:
       - db
     depends_on:
       - db
-#    ports:
-#      - "80:80"
-#      - "443:443"
+    ports:
+      - "9000"
+    volumes:
+      #- ./src/osTicket-1.12:/home/osticket/app
+#      - ./configs/php/fpm/www.conf:/etc/php/7.2/fpm/pool.d/www.conf
+#      - ./configs/php/fpm/php-fpm.conf:/etc/php/7.2/fpm/php-fpm.conf
+#      - ./configs/php/fpm/php.ini:/etc/php/7.2/fpm/php.ini
+#      - ./configs/php/cli/php.ini:/etc/php/7.2/cli/php.ini
+#      - ./configs/supervisord/osticket.conf:/etc/supervisor/conf.d/osticket.conf
+      #- ./configs/osticket/ost-config.php:/home/osticket/app/include/ost-config.php
+      - ./configs/osticket/ost-configtempl.php:/home/osticket/app/include/ost-config.php
 
   db:
     image: mysql:5.7
@@ -36,6 +44,27 @@ services:
       - osticket
     ports:
       - "80:80"
+    working_dir: /home/osticket/app
     volumes:
       - ./configs/nginx/conf.d:/etc/nginx/conf.d/
       - ./configs/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./src/osTicket-1.12:/home/osticket/app
+
+  memcached:
+    image: memcached:1.5
+    restart: always
+    container_name: memcached
+
+  smtp:
+    image: trydirect/smtp
+    container_name: smtp
+    restart: always
+    env_file: ./configs/smtp/smtp.env
+    ports:
+      - "$BIND_ADDRESS:25:25"
+      - "$BIND_ADDRESS:465:465"
+      - "$BIND_ADDRESS:587:587"
+    volumes:
+      - "$ROOT/data:/data"
+      - "$ROOT/certs:/certs"
+      - "$ROOT/overrides:/overrides"

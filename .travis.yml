@@ -1,0 +1,43 @@
+language: python
+python:
+  - 2.7
+
+env:
+  - DOCKER_CONTENT_TRUST=0
+
+services:
+  - docker
+
+before_install:
+  # update is required to update the repositories to see the new packages for
+  # Docker.
+  - sudo apt-get update
+  - docker-compose --version
+  - pip install docker-compose --upgrade
+  - docker-compose --version
+
+install:
+  - cd 1.12/build
+  - docker-compose up -d --build
+  - docker-compose ps
+
+before_script:
+  - pip install requests
+  - pip install docker
+  - cd $TRAVIS_BUILD_DIR
+
+script:
+  - bash ./.travis/linters.sh
+  - python tests.py
+
+
+notifications:
+  slack:
+    rooms:
+      - optimum-team:GycletOWK4Kt95GktwYwfUMp#build
+
+after_success:
+  - cd build
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+  - docker-compose -f images
+  - docker push trydirect/osticket:1.12

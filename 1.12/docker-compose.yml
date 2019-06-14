@@ -61,10 +61,10 @@ services:
     restart: always
     env_file: ./configs/smtp/smtp.env
     ports:
-      - "$BIND_ADDRESS:25:25"
-      - "$BIND_ADDRESS:465:465"
-      - "$BIND_ADDRESS:587:587"
+      - "127.0.0.1:25:25"
+      - "127.0.0.1:465:465"
+      - "127.0.0.1:587:587"
     volumes:
-      - "$ROOT/data:/data"
-      - "$ROOT/certs:/certs"
-      - "$ROOT/overrides:/overrides"
+      - "./data:/data"
+      - "./certs:/certs"
+      - "./overrides:/overrides"

@@ -35,6 +35,16 @@ Clone this project into your work directory:
 $ git clone https://github.com/trydirect/osticket.git
 ```
 
+## Post installation
+At the last step please run following command.
+
+```
+./post_install.sh    #this will remove setup directory and set permissions on config file.
+```
+
+Finally you have to re-login to get rid of osTicket secuirty alert message. 
+
+
 # Contributing
 
 1. Fork it (https://github.com/trydirect/osticket/fork)

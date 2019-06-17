@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-sudo rm -rf app/setup;
-sudo chmod 0644 app/include/ost-config.php;
+
+sudo rm -rf ./src/osTicket-1.12/setup;
+sudo chmod 0644 ./src/osTicket-1.12/include/ost-config.php;
 docker-compose restart osticket nginx;
 # re-login

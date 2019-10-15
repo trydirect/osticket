@@ -45,6 +45,12 @@ At the last step please run following command.
 Finally you have to re-login to get rid of osTicket secuirty alert message. 
 
 
+## Quick deployment to cloud
+##### Amazon AWS, Digital Ocean, Hetzner and others
+[<img src="https://img.shields.io/badge/quick%20deploy-%40try.direct-brightgreen.svg">](https://try.direct/server/user/deploy/Im9zdGlja2V0fDZ8MzUi.EIJLoA.SohvaToLZXpcBHu_Ne--FTZvHD8/)
+
+
+
 # Contributing
 
 1. Fork it (https://github.com/trydirect/osticket/fork)
